@@ -9,6 +9,12 @@ package game;
  */
 public class GameMain {
 
+    
+    /** 
+     * Main method where all the action happends.
+     * 
+     * @param args Arguments introduced through the terminal.
+     */
     public static void main (String ... args) {
         // Game juego = Game.getInstance();
     }
