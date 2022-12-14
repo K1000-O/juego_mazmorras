@@ -18,6 +18,8 @@ public class Player {
      */
     private String name;
 
+    private Race race;
+
     /**
      * Count of the number of players playing (there can be more than one).
      */
@@ -28,8 +30,9 @@ public class Player {
      * 
      * @param name name of the player.
      */
-    public Player(String name) {
+    public Player(String name, Race race) {
         setName(name);
+        setRace(race);
         this.ID = numPlayers++;
     }
 
@@ -40,6 +43,15 @@ public class Player {
      */
     private void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * Setter of the player's race.
+     * 
+     * @param race player's race.
+     */
+    public void setRace(Race race) {
+        this.race = race;
     }
 
     /**
@@ -58,6 +70,15 @@ public class Player {
      */
     public int getID() {
         return ID;
+    }
+
+    /**
+     * Getter of the player's race.
+     *
+     * @return race player's race.
+     */
+    public Race getRace() {
+        return race;
     }
 
     /**
