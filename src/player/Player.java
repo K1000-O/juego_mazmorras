@@ -1,5 +1,7 @@
 package player;
 
+import player.race.Race;
+
 /**
  * Player class.
  * Instance of the player. In order to save the info of the person that is playing, we use a non variable ID. 
