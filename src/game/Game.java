@@ -1,6 +1,10 @@
 package game;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,7 +22,7 @@ public class Game {
     /**
      * Instance variable in order to implement the Singleton design pattern.
      */
-    private static Game instance;
+    private static Game INSTANCE;
     
     /**
      * Instance of the player playing the game.
@@ -33,11 +37,16 @@ public class Game {
     /**
      * Game constructor.
      */
-    private Game() {
+    private Game(String name) {
         try {
-            loadGame();
-        } catch (Exception e) {
-            createGame();
+            loadGame(name);
+        } catch (FileNotFoundException e) {
+            try {
+                createGame(name);
+            } catch (FileNotFoundException eCreateGame) {
+                System.err.println("ERROR: file wasn't found.");
+		        eCreateGame.printStackTrace();
+            }
         }
     }
 
@@ -46,35 +55,77 @@ public class Game {
      * 
      * @return instance Singleton instance.
      */
-    public static Game getInstance() {
-        if (Game.instance == null) return new Game();
-        else return Game.instance;
+    public static Game getInstance(String name) {
+        if (Game.INSTANCE == null) 
+            Game.INSTANCE = new Game(name);
+        
+        return Game.INSTANCE;
     }
 
     /**
      * Method that creates an empty game.
+     * 
+     * @param name name of the file to create.
      */
-    private void createGame() {
+    private boolean createGame(String name) throws FileNotFoundException {
         /* Crearemos el juego. */
         int size = savings.size();
 
         /* Crear el ficehro. */
-        
-        savings.put(size, "Nombre del fichero.");
+        savings.put(size, name); // ESTO LO TENEMOS QUE GUARDAR EN OTRO FICHERO A LEER.
+
+        try {
+            File f = new File("/data/" + name);
+
+            if (f.createNewFile())
+                return true;
+            else
+                System.err.println("ERROR: file already exists.");
+        } catch (IOException e) {
+            System.err.println("ERROR: file couldn't be created (I/O error ocurred).");
+		    e.printStackTrace();
+        }
+
+        return false;
     }
 
     /**
      * This method is in charged of loading the game if exists the file data.
+     * 
+     * @param name name of the file to load.
      */
-    private void loadGame() throws FileNotFoundException {
+    private boolean loadGame(String name) throws FileNotFoundException {
         /* Aquí cargaremos el juego a la hora de crear la instancia. */
+        return false;
     }
 
     /**
      * This method is in charged of loading the game on the correct data file.
+     * 
+     * @param name name of the file where we save the game.
      */
-    public void saveGame() {
+    public boolean saveGame(String name) {
         /* Aquí guardaremos el juego. */
+
+        // ObjectOutputStream save = null;
+
+        // try {
+        //     save = new ObjectOutputStream(new FileOutputStream("/data/" + name));
+        // } catch (IOException e) {
+            // System.err.println("Error on the saving of the game.");
+			// return false;
+        // } finally {
+        //     if (save != null) {
+        //         try {
+        //             save.close();
+        //         } catch (IOException e) {
+		// 			System.err.println("Error al cerrar el archivo.");
+		// 			e.printStackTrace();
+        //         }
+        //     }
+        // }
+
+        return false;
     }
 
 
