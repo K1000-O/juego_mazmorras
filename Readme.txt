@@ -13,3 +13,4 @@ V-0.0.1:
     -   Comienzo de la recopilación de las ideas del juego.
     -   Comienzo desarrollo del PDF (documentación) de la aplicación.
     -   Comienzo de la clase Game. Será un patrón de diseño Singleton.
+    -   Comienzo de la clase Player y la correspondiente clase abstracta Race.
