@@ -3,8 +3,10 @@ package game;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,7 +46,7 @@ public class Game {
             try {
                 createGame(name);
             } catch (FileNotFoundException eCreateGame) {
-                System.err.println("ERROR: file wasn't found.");
+                System.err.println(">> ERROR: file wasn't found.");
 		        eCreateGame.printStackTrace();
             }
         }
@@ -71,18 +73,40 @@ public class Game {
         /* Crearemos el juego. */
         int size = savings.size();
 
-        /* Crear el ficehro. */
+        /*
+         * Save design ==> num || file_name.
+         */
         savings.put(size, name); // ESTO LO TENEMOS QUE GUARDAR EN OTRO FICHERO A LEER.
 
+        PrintWriter pw = null;
+
         try {
-            File f = new File("/data/" + name);
+            pw = new PrintWriter(new FileWriter("./data/savings.txt", true));
+
+            pw.println(size + " || " + name);
+        } catch (Exception e) {
+            System.err.println(">> ERROR: saving file name couldn't be written down (I/O error ocurred).");
+		    e.printStackTrace();
+        } finally {
+            try {
+                if (pw != null)
+                    pw.close();
+            } catch (Exception e) {
+                System.err.println(">> ERROR: file not closed.");
+		        e.printStackTrace();
+            }
+        }
+
+        /* Crear el fichero. */
+        try {
+            File f = new File("./data/" + name);
 
             if (f.createNewFile())
                 return true;
             else
-                System.err.println("ERROR: file already exists.");
+                System.err.println(">> ERROR: file already exists."); // Meter sobreescribir?
         } catch (IOException e) {
-            System.err.println("ERROR: file couldn't be created (I/O error ocurred).");
+            System.err.println(">> ERROR: file couldn't be created (I/O error ocurred).");
 		    e.printStackTrace();
         }
 
@@ -96,7 +120,7 @@ public class Game {
      */
     private boolean loadGame(String name) throws FileNotFoundException {
         /* Aquí cargaremos el juego a la hora de crear la instancia. */
-        return false;
+        throw new FileNotFoundException();
     }
 
     /**
