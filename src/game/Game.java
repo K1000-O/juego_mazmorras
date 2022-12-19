@@ -75,7 +75,7 @@ public class Game {
         try {
             pw = new PrintWriter(new FileWriter("./data/savings.txt", true));
 
-            pw.println(size + "||" + name);
+            pw.println(size + ":" + name);
         } catch (Exception e) {
             System.err.println(">> ERROR: saving file name couldn't be written down (I/O error ocurred).");
 		    e.printStackTrace();
@@ -123,7 +123,7 @@ public class Game {
             /* Leemos el fichero y guardamos los savings. */
             String line;
             while ((line = br.readLine()) != null) {
-                String[] lineAux = line.split("||");
+                String[] lineAux = line.split(":");
                 
                 savings.put(Integer.parseInt(lineAux[0]), lineAux[1]); // Sabemos por como lo guardamos que es --> int: String.
             }
@@ -180,6 +180,6 @@ public class Game {
      * Method that prints evrything needed from the Game class.
      */
     @Override public String toString() {
-        return "Esta es la clase Game.";
+        return "Esta es la clase Game. Savings: " + savings;
     }
 }
