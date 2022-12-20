@@ -114,34 +114,9 @@ public class Game {
         /* Aquí cargaremos el juego a la hora de crear la instancia. */
 
         /**
-         * Cargamos los nombres de los savings.
+         * Load of the savings.
          */
-        BufferedReader br = null;
-        try {
-            br = new BufferedReader(new FileReader(new File("./data/savings.txt")));
-
-            /* Leemos el fichero y guardamos los savings. */
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] lineAux = line.split(":");
-                
-                savings.put(Integer.parseInt(lineAux[0]), lineAux[1]); // Sabemos por como lo guardamos que es --> int: String.
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println(">> ERROR: savings.txt doesn't exists.\n Creating savings.txt...\n");
-            throw new FileNotFoundException();
-        } catch (IOException ioe){
-            System.err.println(">> ERROR: saving file name couldn't be readen (I/O error ocurred).");
-		    ioe.printStackTrace();
-        } finally {
-            try {
-                if (br != null)
-                    br.close();
-            } catch (Exception e) {
-                System.err.println(">> ERROR: file not closed (1).");
-		        e.printStackTrace();
-            }
-        }
+        setSavings();
 
         throw new FileNotFoundException();
     }
@@ -181,5 +156,39 @@ public class Game {
      */
     @Override public String toString() {
         return "Esta es la clase Game. Savings: " + savings;
+    }
+
+    /**
+     * Method used to read the savings on the load method.
+     * 
+     * @throws FileNotFoundException
+     */
+    private void setSavings() throws FileNotFoundException{
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(new FileReader(new File("./data/savings.txt")));
+
+            /* Leemos el fichero y guardamos los savings. */
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] lineAux = line.split(":");
+                
+                savings.put(Integer.parseInt(lineAux[0]), lineAux[1]); // We know that the written line sintaxis is --> int: String.
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println(">> ERROR: savings.txt doesn't exists.\n Creating savings.txt...\n");
+            throw new FileNotFoundException();
+        } catch (IOException ioe){
+            System.err.println(">> ERROR: saving file couldn't be readen (I/O error ocurred).");
+		    ioe.printStackTrace();
+        } finally {
+            try {
+                if (br != null)
+                    br.close();
+            } catch (Exception e) {
+                System.err.println(">> ERROR: file not closed (1).");
+		        e.printStackTrace();
+            }
+        }
     }
 }
