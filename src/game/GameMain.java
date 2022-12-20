@@ -16,7 +16,7 @@ public class GameMain {
      * @param args Arguments introduced through the terminal.
      */
     public static void main (String ... args) {
-        Game game = Game.getInstance("prueba2.dat");
+        Game game = Game.getInstance("prueba1.dat");
 
         System.out.println(game);
     }

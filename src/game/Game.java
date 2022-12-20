@@ -30,18 +30,22 @@ public class Game {
     private Map<Integer, String> savings = new HashMap<>();
 
     /**
-     * Game constructor.
+     * Game constructor. Charges de savings names and the load game.
      */
     private Game(String name) {
         try {
-            loadGame(name);
-        } catch (FileNotFoundException e) {
-            try {
+            /**
+             * Load of the savings.
+             */
+            setSavings();
+
+            if (savings.values().stream().anyMatch(x -> x.equals(name)))
+                loadGame(name);
+            else
                 createGame(name);
-            } catch (FileNotFoundException eCreateGame) {
-                System.err.println(">> ERROR: file wasn't found.");
-		        eCreateGame.printStackTrace();
-            }
+        } catch (FileNotFoundException e) {
+            System.err.println(">> DEBUG: savings file not found. Creating...");
+            createGame(name);
         }
     }
 
@@ -62,7 +66,7 @@ public class Game {
      * 
      * @param name name of the file to create.
      */
-    private boolean createGame(String name) throws FileNotFoundException {
+    private boolean createGame(String name) {
         /* Crearemos el juego. */
         int size = savings.size();
 
@@ -76,7 +80,7 @@ public class Game {
             pw = new PrintWriter(new FileWriter("./data/savings.txt", true));
 
             pw.println(size + ":" + name);
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.err.println(">> ERROR: saving file name couldn't be written down (I/O error ocurred).");
 		    e.printStackTrace();
         } finally {
@@ -114,11 +118,8 @@ public class Game {
         /* Aquí cargaremos el juego a la hora de crear la instancia. */
 
         /**
-         * Load of the savings.
+         * Load of the game.
          */
-        setSavings();
-
-        throw new FileNotFoundException();
     }
 
     /**
@@ -176,7 +177,7 @@ public class Game {
                 savings.put(Integer.parseInt(lineAux[0]), lineAux[1]); // We know that the written line sintaxis is --> int: String.
             }
         } catch (FileNotFoundException e) {
-            System.out.println(">> ERROR: savings.txt doesn't exists.\n Creating savings.txt...\n");
+            System.out.println(">> ERROR: savings.txt doesn't exists.");
             throw new FileNotFoundException();
         } catch (IOException ioe){
             System.err.println(">> ERROR: saving file couldn't be readen (I/O error ocurred).");
