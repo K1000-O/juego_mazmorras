@@ -1,5 +1,7 @@
 package player;
 
+import java.io.Serializable;
+
 import player.race.Race;
 
 /**
@@ -9,7 +11,7 @@ import player.race.Race;
  * @author Camilo Jené Conde <cjeneconde@gmail.com>
  * @version 0.0.1
  */
-public class Player {
+public class Player implements Serializable {
     /**
      * Contant ID.
      */

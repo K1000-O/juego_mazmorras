@@ -13,7 +13,7 @@ import player.Player;
  * @author Camilo Jené Conde <cjeneconde@gmail.com>
  * @version 0.0.1
  */
-public class Game {
+public class Game implements Serializable {
     /**
      * Instance variable in order to implement the Singleton design pattern.
      */
@@ -38,11 +38,6 @@ public class Game {
              * Load of the savings.
              */
             setSavings();
-
-            if (savings.values().stream().anyMatch(x -> x.equals(name)))
-                loadGame(name);
-            else
-                createGame(name);
         } catch (FileNotFoundException e) {
             System.err.println(">> DEBUG: savings file not found. Creating...");
             createGame(name);
@@ -59,6 +54,14 @@ public class Game {
             Game.INSTANCE = new Game(name);
         
         return Game.INSTANCE;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
     /**
@@ -114,12 +117,36 @@ public class Game {
      * 
      * @param name name of the file to load.
      */
-    private void loadGame(String name) throws FileNotFoundException {
+    public Game loadGame(String name) throws FileNotFoundException {
         /* Aquí cargaremos el juego a la hora de crear la instancia. */
-
+        if (!savings.values().stream().anyMatch(x -> x.equals(name)))
+            return null;
         /**
          * Load of the game.
          */
+        ObjectInputStream in = null;
+        Game game = null;
+        try {
+            in = new ObjectInputStream(new FileInputStream("./data/" + name));
+            
+            game = (Game)in.readObject();
+            System.out.println(game.getPlayer());
+        } catch (FileNotFoundException e) {
+            throw new FileNotFoundException();
+        } catch (Exception e) {
+            System.err.println(">> ERROR: object Game couldn't be load properly.");
+            e.printStackTrace();
+        } finally {
+            try {
+                if (in != null)
+                    in.close();
+            } catch (IOException e) {
+                System.err.println(">> ERROR: file not closed (3).");
+                e.printStackTrace();
+            }
+        }
+
+        return game;
     }
 
     /**
@@ -130,23 +157,27 @@ public class Game {
     public boolean saveGame(String name) {
         /* Aquí guardaremos el juego. */
 
-        // ObjectOutputStream save = null;
+        ObjectOutputStream out = null;
+        try {
+            out = new ObjectOutputStream(new FileOutputStream("./data/" + name));
+            
+            out.writeObject(this);
 
-        // try {
-        //     save = new ObjectOutputStream(new FileOutputStream("/data/" + name));
-        // } catch (IOException e) {
-            // System.err.println("Error on the saving of the game.");
-			// return false;
-        // } finally {
-        //     if (save != null) {
-        //         try {
-        //             save.close();
-        //         } catch (IOException e) {
-		// 			System.err.println("Error al cerrar el archivo.");
-		// 			e.printStackTrace();
-        //         }
-        //     }
-        // }
+            out.flush();
+        } catch (FileNotFoundException e) {
+            System.err.println(">> ERROR: game save file (" + name + ") not found.");
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println(">> ERROR: object Game couldn't be serialized properly.");
+            e.printStackTrace();
+        } finally {
+            try {
+                out.close();
+            } catch (IOException e) {
+                System.err.println(">> ERROR: file not closed (3).");
+                e.printStackTrace();
+            }
+        }
 
         return false;
     }

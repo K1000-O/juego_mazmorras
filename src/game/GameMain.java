@@ -1,5 +1,9 @@
 package game;
 
+import java.io.FileNotFoundException;
+
+import player.Player;
+
 /**
  * Main class of the game. Everything starts from here.
  * 
@@ -15,8 +19,20 @@ public class GameMain {
      * 
      * @param args Arguments introduced through the terminal.
      */
-    public static void main (String ... args) {
-        Game game = Game.getInstance("prueba1.dat");
+    public static void main (String ... args) throws FileNotFoundException {
+        String name = "prueba1.dat";
+        Game game = Game.getInstance(name);
+        game.saveGame(name);
+
+        game = game.loadGame(name);
+
+        Player player = new Player("Camilo Jene", null);
+
+        if (game.getPlayer() == null) game.setPlayer(player);
+
+        System.out.println(game.getPlayer());
+
+        game.saveGame(name);
 
         System.out.println(game);
     }
