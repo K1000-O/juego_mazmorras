@@ -6,7 +6,8 @@ import player.race.Race;
 
 /**
  * Player class.
- * Instance of the player. In order to save the info of the person that is playing, we use a non variable ID. 
+ * Instance of the player. In order to save the info of the person that is playing, we use a non variable ID.
+ * Order of the position in the game ==> N, E, S, W.
  * 
  * @author Camilo Jené Conde <cjeneconde@gmail.com>
  * @version 0.0.1
@@ -28,6 +29,14 @@ public class Player implements Serializable {
      * Count of the number of players playing (there can be more than one).
      */
     private static int numPlayers = 0;
+
+    /**
+     * Player position on the game.
+     */
+    private int north = -1;
+    private int east = -1;
+    private int south = -1;
+    private int west = -1;
 
     /**
      * Player constructor.
@@ -85,6 +94,23 @@ public class Player implements Serializable {
         return race;
     }
 
+    public int getNorth() {
+        return north;
+    }
+
+    public int getEast() {
+        return east;
+    }
+
+    public int getSouth() {
+        return south;
+    }
+
+    public int getWest() {
+        return west;
+    }
+
+    
     /**
      * Override method toString in order to print the data of the class.
      */
