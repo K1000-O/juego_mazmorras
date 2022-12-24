@@ -15,4 +15,5 @@ V-0.0.1:
     -   Comienzo de la clase Game. Será un patrón de diseño Singleton.
         +   Se encargará de crear, guardar y cargar el juego y los datos necesarios para su correcto funcionamiento.
         +   TO DO: revisar el constructor de Game. Utiliza un nombre que no se debería de saber hasta que se lean los guardados.
+            +   IMPORTANTE ==> A la hora de cargar es: loadGame if .dat exists else createGame
     -   Comienzo de la clase Player y la correspondiente clase abstracta Race.
