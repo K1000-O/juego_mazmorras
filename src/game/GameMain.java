@@ -19,14 +19,19 @@ public class GameMain {
      * 
      * @param args Arguments introduced through the terminal.
      */
-    public static void main (String ... args) throws FileNotFoundException {
+    public static void main (String ... args) {
         String name = "prueba1.dat";
         Game game = Game.getInstance(name);
-        game.saveGame(name);
 
-        game = game.loadGame(name);
+        
+        try {
+            game = game.loadGame(name);
+        } catch (Exception e) {
+            game.saveGame(name);
+        }
+        
 
-        Player player = new Player("Camilo Jene", null);
+        Player player = new Player("Camilo Jene 2", null);
 
         if (game.getPlayer() == null) game.setPlayer(player);
 
