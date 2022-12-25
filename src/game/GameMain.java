@@ -1,7 +1,5 @@
 package game;
 
-import java.io.FileNotFoundException;
-
 import player.Player;
 
 /**
