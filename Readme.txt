@@ -17,3 +17,9 @@ V-0.0.1:
         +   TO DO: revisar el constructor de Game. Utiliza un nombre que no se debería de saber hasta que se lean los guardados.
             +   IMPORTANTE ==> A la hora de cargar es: loadGame if .dat exists else createGame
     -   Comienzo de la clase Player y la correspondiente clase abstracta Race.
+    -   RACE:
+        +   Human: started.
+        +   Goblin: started.
+        +   Dwarf: to start.
+        +   Elf: to start.
+        +   Orc: to start (It's useful on the game?).
