@@ -94,6 +94,7 @@ public class Player implements Serializable {
         return race;
     }
 
+    << must comment >>
     public int getNorth() {
         return north;
     }
