@@ -1,5 +1,10 @@
 package player.race;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+
+import player.race.classes.*;
+
 /**
  * Race class.
  * Instance of the race. In order to save the stats of the race that is being played. 
@@ -7,7 +12,7 @@ package player.race;
  * @author Camilo Jené Conde <cjeneconde@gmail.com>
  * @version 0.0.1
  */
-public abstract class Race {
+public abstract class Race implements Serializable {
     /**
      * Base attack of the race.
      */
@@ -34,6 +39,17 @@ public abstract class Race {
     private int criticalAttack;
 
     /**
+     * Class type of the race chosen for the game. CAN BE CHANGED.
+     */
+    private ClassType classType;
+
+    private final int attackLevelUp;
+    private final int defenseLevelUp;
+    private final int agilityLevelUp;
+    private final int attackSpeedLevelUp;
+    private final int criticalAttackLevelUp;
+
+    /**
      * Race class constructor. We receive the base stats and save them on the final variables.
      * 
      * @param a base attack.
@@ -42,12 +58,21 @@ public abstract class Race {
      * @param as attack speed base stat.
      * @param ca critic base stat.
      */
-    public Race (int a, int df, int ag, int as, int ca) {
+    public Race (int a, int df, int ag, int as, int ca, ArrayList<Integer> baseLevelUpStats) {
         setAgility(ag);
         setAttack(a);
         setDefense(df);
         setAttackSpeed(as);
         setCriticalAttack(ca);
+
+        /**
+         * We initialise the final stats data.
+         */
+        attackLevelUp = baseLevelUpStats.get(0);
+        defenseLevelUp = baseLevelUpStats.get(1);
+        agilityLevelUp = baseLevelUpStats.get(2);
+        attackSpeedLevelUp = baseLevelUpStats.get(3);
+        criticalAttackLevelUp = baseLevelUpStats.get(4);
     }
 
     
@@ -150,6 +175,26 @@ public abstract class Race {
         return defense;
     }
 
+    /**
+     * Method that sets the class type of the race. 
+     * We have to set the extra habilities of the race.
+     * 
+     * @param classType
+     */
+    public void setClassType(ClassType classType) {
+        this.classType = classType;
+    }
+
+    /**
+     * Method to level up the player.
+     */
+    public void levelUp() {
+        setAttack(getAttack() + attackLevelUp + classType.levelUp());
+        setDefense(getDefense() + defenseLevelUp + classType.levelUp());
+        setAgility(getAgility() + agilityLevelUp + classType.levelUp());
+        setAttackSpeed(getAttackSpeed() + attackSpeedLevelUp + classType.levelUp());
+        setCriticalAttack(getCriticalAttack() + criticalAttackLevelUp + classType.levelUp());    
+    }
     
     /** 
      * Method overrided toSting. It prints the base stats.
