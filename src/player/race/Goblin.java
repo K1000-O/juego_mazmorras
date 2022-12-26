@@ -1,5 +1,8 @@
 package player.race;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  * Goblin class.
  * Second type of race abailable on the game.
@@ -28,6 +31,6 @@ public class Goblin extends Race{
      *      -   Critical attack: 2 --> 5(first attack from behind).
      */
     public Goblin() {
-        super(2, 2, 7, 5, 2);
+        super(2, 2, 7, 5, 2, new ArrayList<> (Arrays.asList(1, 1, 5, 3, 2)));
     }
 }
