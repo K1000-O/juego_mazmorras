@@ -1,5 +1,8 @@
 package player.race;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  * Human class.
  * First type of race abailable on the game.
@@ -17,7 +20,6 @@ package player.race;
  * @version 0.0.1
  */
 public class Human extends Race {
-
     /**
      * Human constructar. Calls the Race constructor to save the data.
      * 
@@ -29,6 +31,6 @@ public class Human extends Race {
      *      -   Critical attack: 3.
      */
     public Human() {
-        super(5, 5, 2, 3, 3);
+        super(5, 5, 2, 3, 3, new ArrayList<> (Arrays.asList(4, 4, 1, 1, 2)));
     }
 }
