@@ -23,7 +23,10 @@ public class Player implements Serializable {
      */
     private String name;
 
-    private Race race;
+    /**
+     * Race of the player. U can't change it.
+     */
+    private final Race race;
 
     /**
      * Count of the number of players playing (there can be more than one).
@@ -37,6 +40,11 @@ public class Player implements Serializable {
     private int east = -1;
     private int south = -1;
     private int west = -1;
+
+    /**
+     * Acual level of the player.
+     */
+    private int level = 0;
 
     /**
      * Player constructor.
@@ -63,7 +71,7 @@ public class Player implements Serializable {
      * 
      * @param race player's race.
      */
-    public void setRace(Race race) {
+    private void setRace(Race race) {
         this.race = race;
     }
 
@@ -83,6 +91,15 @@ public class Player implements Serializable {
      */
     public int getID() {
         return ID;
+    }
+
+    /**
+     * Getter of the level of the player.
+     * 
+     * @return int player's level.
+     */
+    public int getLevel() {
+        return level;
     }
 
     /**
@@ -111,12 +128,19 @@ public class Player implements Serializable {
         return west;
     }
 
-    
+    /**
+     * Method that levels up the character.
+     */
+    public void levelUp() {
+        race.levelUp();
+        level++;
+    }
+
     /**
      * Override method toString in order to print the data of the class.
      */
     @Override
     public String toString() {
-        return "Player info:\n  ID -->" + getID() + "\n  Nombre: " + getName();
+        return "Player info:\n  ID -->" + getID() + "\n  Nombre: " + getName() + "\n Level: " + getLevel();
     }
 }
