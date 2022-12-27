@@ -19,14 +19,14 @@ public class Player implements Serializable {
     private final int ID;
 
     /**
-     * Name of the player using the game.
-     */
-    private String name;
-
-    /**
      * Race of the player. U can't change it.
      */
     private final Race race;
+
+    /**
+     * Name of the player using the game.
+     */
+    private String name;
 
     /**
      * Count of the number of players playing (there can be more than one).
@@ -53,7 +53,7 @@ public class Player implements Serializable {
      */
     public Player(String name, Race race) {
         setName(name);
-        setRace(race);
+        this.race = race;
         this.ID = numPlayers++;
     }
 
@@ -64,15 +64,6 @@ public class Player implements Serializable {
      */
     public void setName(String name) {
         this.name = name;
-    }
-
-    /**
-     * Setter of the player's race.
-     * 
-     * @param race player's race.
-     */
-    private void setRace(Race race) {
-        this.race = race;
     }
 
     /**
@@ -111,22 +102,21 @@ public class Player implements Serializable {
         return race;
     }
 
-    << must comment >>
-    public int getNorth() {
-        return north;
-    }
+    // public int getNorth() {
+    //     return north;
+    // }
 
-    public int getEast() {
-        return east;
-    }
+    // public int getEast() {
+    //     return east;
+    // }
 
-    public int getSouth() {
-        return south;
-    }
+    // public int getSouth() {
+    //     return south;
+    // }
 
-    public int getWest() {
-        return west;
-    }
+    // public int getWest() {
+    //     return west;
+    // }
 
     /**
      * Method that levels up the character.
