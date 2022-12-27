@@ -29,10 +29,12 @@ public class Game implements Serializable {
      */
     private Map<Integer, String> savings = new HashMap<>();
 
+    private String saveFile;
+
     /**
      * Game constructor. Charges de savings names and the load game.
      */
-    private Game(String name) {
+    private Game() {
         try {
             /**
              * Load of the savings.
@@ -40,7 +42,14 @@ public class Game implements Serializable {
             setSavings();
         } catch (FileNotFoundException e) {
             System.err.println(">> DEBUG: savings file not found. Creating...");
-            createGame(name);
+            File f = new File("./data/savings.txt");
+            
+            try {
+                f.createNewFile();
+            } catch (IOException ioe){
+                System.err.println(">> ERROR: saving file couldn't be created (I/O error ocurred).");
+                ioe.printStackTrace();
+            }
         }
     }
 
@@ -49,13 +58,18 @@ public class Game implements Serializable {
      * 
      * @return instance Singleton instance.
      */
-    public static Game getInstance(String name) {
+    public static Game getInstance() {
         if (Game.INSTANCE == null) 
-            Game.INSTANCE = new Game(name);
+            Game.INSTANCE = new Game();
         
         return Game.INSTANCE;
     }
 
+    /**
+     * Setter of the player that is playing this game.
+     * 
+     * @param player player instance of the game.
+     */
     public void setPlayer(Player player) {
         this.player = player;
     }
@@ -69,11 +83,13 @@ public class Game implements Serializable {
      * 
      * @param name name of the file to create.
      */
-    private boolean createGame(String name) {
+    private boolean createNewGame(String name) {
         /* Crearemos el juego. */
         int size = savings.size();
 
         savings.put(size, name);
+
+        saveFile = name;
 
         /*
         * Save design ==> num || file_name.
@@ -152,20 +168,19 @@ public class Game implements Serializable {
     /**
      * This method is in charged of loading the game on the correct data file.
      * 
-     * @param name name of the file where we save the game.
      */
-    public boolean saveGame(String name) {
+    public boolean saveGame() {
         /* Aquí guardaremos el juego. */
 
         ObjectOutputStream out = null;
         try {
-            out = new ObjectOutputStream(new FileOutputStream("./data/" + name));
+            out = new ObjectOutputStream(new FileOutputStream("./data/" + saveFile));
             
             out.writeObject(this);
 
             out.flush();
         } catch (FileNotFoundException e) {
-            System.err.println(">> ERROR: game save file (" + name + ") not found.");
+            System.err.println(">> ERROR: game save file (" + saveFile + ") not found.");
             e.printStackTrace();
         } catch (Exception e) {
             System.err.println(">> ERROR: object Game couldn't be serialized properly.");
