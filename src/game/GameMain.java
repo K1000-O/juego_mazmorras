@@ -19,24 +19,39 @@ public class GameMain {
      */
     public static void main (String ... args) {
         String name = "prueba1.dat";
-        Game game = Game.getInstance(name);
+        Game game = Game.getInstance();
 
+        start();
         
-        try {
-            game = game.loadGame(name);
-        } catch (Exception e) {
-            game.saveGame(name);
+        while(true) {
+            game = update(game);
         }
-        
+    }
 
-        Player player = new Player("Camilo Jene 2", null);
+    /**
+     * Method used to start the game.
+     * We load the game saves and after that we choose to load a game or create a new one.
+     * 
+     */
+    private static Game start() {
+        Game game = Game.getInstance();
 
-        if (game.getPlayer() == null) game.setPlayer(player);
+        return game;
+    }
 
-        System.out.println(game.getPlayer());
+    /**
+     * Method used to update on each click of the game.
+     * 
+     * Algorithm:
+     *      -   save the actual instance of the game.
+     *      -   ...
+     * 
+     * @param game actual instance of the game.
+     * @return Game the new instance of the game.
+     */
+    private static Game update(Game game) {
+        game.saveGame();
 
-        game.saveGame(name);
-
-        System.out.println(game);
+        return game;
     }
 }
