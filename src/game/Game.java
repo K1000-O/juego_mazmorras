@@ -7,7 +7,8 @@ import player.Player;
 
 /**
  * {@code Game} class.
- * On this package we will do everything needed to make the game work in perfect conditions.
+ * <p>
+ * On this class we will do everything needed to make the game work in perfect conditions.
  * Actions like: save the game, load the game, create enemies o allies, etc. will be done on this class.
  * <p>
  * There will be a {@code savings.txt} file where we save the name of the save files.

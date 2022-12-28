@@ -1,7 +1,5 @@
 package game;
 
-import player.Player;
-
 /**
  * Main class of the game. Everything starts from here.
  * 
@@ -18,7 +16,6 @@ public class GameMain {
      * @param args Arguments introduced through the terminal.
      */
     public static void main (String ... args) {
-        String name = "prueba1.dat";
         Game game = Game.getInstance();
 
         start();
