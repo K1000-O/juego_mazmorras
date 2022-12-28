@@ -6,9 +6,27 @@ import java.util.*;
 import player.Player;
 
 /**
- * Game class.
+ * {@code Game} class.
  * On this package we will do everything needed to make the game work in perfect conditions.
  * Actions like: save the game, load the game, create enemies o allies, etc. will be done on this class.
+ * <p>
+ * There will be a {@code savings.txt} file where we save the name of the save files.
+ * <p>
+ * To start correctly the game we need:
+ * <blockquote><pre>
+ * GameCreation:
+ *      Game game = Game.getInstance();
+ *      if (!save) {
+ *          createNewGame();
+ *      } else {
+ *          loadGame();
+ *      }
+ * </pre></blockquote>
+ * <p>
+ * The class {@code Game} includes a reference to the {@link player.Player player} that
+ * is in control of the main character of the story.
+ * <p>
+ * We also have a {@link java.util.HashMap HashMap} where we save the savings we already made.
  * 
  * @author Camilo Jené Conde <cjeneconde@gmail.com>
  * @version 0.0.1
