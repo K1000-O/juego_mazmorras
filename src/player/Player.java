@@ -34,14 +34,6 @@ public class Player implements Serializable {
     private static int numPlayers = 0;
 
     /**
-     * Player position on the game.
-     */
-    private int north = -1;
-    private int east = -1;
-    private int south = -1;
-    private int west = -1;
-
-    /**
      * Acual level of the player.
      */
     private int level = 0;
@@ -101,22 +93,6 @@ public class Player implements Serializable {
     public Race getRace() {
         return race;
     }
-
-    // public int getNorth() {
-    //     return north;
-    // }
-
-    // public int getEast() {
-    //     return east;
-    // }
-
-    // public int getSouth() {
-    //     return south;
-    // }
-
-    // public int getWest() {
-    //     return west;
-    // }
 
     /**
      * Method that levels up the character.
