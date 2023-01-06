@@ -27,7 +27,8 @@ import player.Player;
  * The class {@code Game} includes a reference to the {@link player.Player player} that
  * is in control of the main character of the story.
  * <p>
- * We also have a {@link java.util.HashMap HashMap} where we save the savings we already made.
+ * We also have a {@link java.util.HashMap HashMap} where we save the savings we already made. Later on we will 
+ * use it to make the list on the front-end.
  * 
  * @author Camilo Jené Conde <cjeneconde@gmail.com>
  * @version 0.0.1
@@ -97,12 +98,16 @@ public class Game implements Serializable {
         return player;
     }
 
+    public Map<Integer, String> getSavings() {
+        return savings;
+    }
+
     /**
      * Method that creates an empty game.
      * 
      * @param name name of the file to create.
      */
-    private boolean createNewGame(String name) {
+    public boolean createNewGame(String name) {
         /* Crearemos el juego. */
         int size = savings.size();
 

@@ -107,6 +107,6 @@ public class Player implements Serializable {
      */
     @Override
     public String toString() {
-        return "Player info:\n  ID -->" + getID() + "\n  Nombre: " + getName() + "\n Level: " + getLevel();
+        return "Player info:\n  ID -->" + getID() + "\n  Nombre: " + getName() + "\n  Level: " + getLevel();
     }
 }

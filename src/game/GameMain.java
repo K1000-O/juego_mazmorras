@@ -1,5 +1,12 @@
 package game;
 
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+import javax.swing.*;
+
+import player.Player;
+
 /**
  * Main class of the game. Everything starts from here.
  * 
@@ -8,21 +15,42 @@ package game;
  * @version 0.0.1
  */
 public class GameMain {
-
+    private static JFrame gameWindow;
+    private static Game game;
     
     /** 
      * Main method where all the action happends.
      * 
      * @param args Arguments introduced through the terminal.
      */
-    public static void main (String ... args) {
-        Game game = Game.getInstance();
-
+    public static void main (String ... args) {        
+        Scanner leer = new Scanner(System.in);
+        Player player = new Player("Camilo Jene 2", null);
         start();
-        
-        while(true) {
-            game = update(game);
+
+        String name = leer.nextLine();
+        leer.close();
+
+        if (game.getSavings().containsValue(name))
+            try {
+                game.loadGame(name);
+            } catch (FileNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        else {
+            game.createNewGame(name);
+            game.setPlayer(player);
         }
+
+        System.out.println(game);
+        
+        game.saveGame();
+
+
+        // while(true) {
+        //     game = update(game);
+        // }
     }
 
     /**
@@ -30,10 +58,8 @@ public class GameMain {
      * We load the game saves and after that we choose to load a game or create a new one.
      * 
      */
-    private static Game start() {
-        Game game = Game.getInstance();
-
-        return game;
+    private static void start() {
+        game = Game.getInstance();
     }
 
     /**
@@ -46,9 +72,18 @@ public class GameMain {
      * @param game actual instance of the game.
      * @return Game the new instance of the game.
      */
-    private static Game update(Game game) {
+    private static void update() {
         game.saveGame();
+    }
 
-        return game;
+    private static void createGameWindow() {
+        gameWindow = new JFrame("Mazmorras");
+        
+        gameWindow.pack(); // Empacamos para centrar la ventana.
+
+        gameWindow.setSize(1000, 780);
+        gameWindow.setLocationRelativeTo(null);
+
+        gameWindow.setResizable(false);
     }
 }
